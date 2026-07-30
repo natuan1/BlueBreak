@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    # macos-15 is an Apple Silicon runner, which is the only architecture
+    # BlueBreak supports (ADR-0006), and ships an Xcode new enough for the Swift 6
+    # language mode the packages are built in.
+    #
+    # Code signing and notarization are out of scope here: the app builds
+    # ad-hoc-signed, which is enough to build, test and launch locally.
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Build Debug and run all test suites
+        run: ./Scripts/test.sh

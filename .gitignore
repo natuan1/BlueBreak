@@ -3,3 +3,19 @@
 # Vendored skills (restore from skills-lock.json)
 .agents/skills/
 .claude/skills/
+
+# Build products
+.build/
+DerivedData/
+*.xcuserstate
+
+# Xcode per-user state; the shared scheme in xcshareddata/ is checked in
+xcuserdata/
+
+# SwiftPM
+.swiftpm/
+Packages/*/.build/
+Packages/*/.swiftpm/
+# Package.resolved is deliberately not ignored: once a remote dependency appears,
+# it is what pins the version. There is nothing to pin while every dependency is
+# a local path.
